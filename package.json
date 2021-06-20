@@ -8,7 +8,9 @@
     "css:scss": "node-sass --output-style compressed -o dist src/scss",
     "css:autoprefixer": "postcss -u autoprefixer -r dist/*.css",
     "build:css": "npm run css:scss && npm run css:autoprefixer",
-    "build:html": "posthtml -c posthtml.json"
+    "build:html": "posthtml -c posthtml.json",
+    "watch:css": "onchange \"src/scss\" -- npm run build:css",
+    "serve": "browser-sync start --server \"dist\" --files \"dist\""
   },
   "repository": {
     "type": "git",
@@ -25,7 +27,9 @@
   },
   "dependencies": {
     "autoprefixer": "^10.2.6",
+    "browser-sync": "^2.26.14",
     "htmlnano": "^1.0.0",
+    "onchange": "^7.1.0",
     "postcss-cli": "^8.3.1",
     "posthtml": "^0.16.4",
     "posthtml-cli": "^0.10.0",
