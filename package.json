@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "css:scss": "node-sass --output-style compressed -o dist src/scss",
     "css:autoprefixer": "postcss -u autoprefixer -r dist/*.css",
-    "build:css": "npm run css:scss && npm run css:autoprefixer"
+    "build:css": "npm run css:scss && npm run css:autoprefixer",
+    "build:html": "posthtml -c posthtml.json"
   },
   "repository": {
     "type": "git",
