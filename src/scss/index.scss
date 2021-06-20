@@ -5,4 +5,16 @@ body {
     color: $main-font-color;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     padding: 1em;
+    border-radius: 4px;
+}
+
+
+#loadingMessage {
+    text-align: center;
+    padding: 40px;
+    background-color: #eee;
+}
+
+#canvas {
+    width: 100%;
 }
