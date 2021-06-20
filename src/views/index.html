@@ -1,13 +1,18 @@
 <!DOCTYPE html>
 <html lang="ja">
     <head>
-        <title>Static Website Template</title>
+        <title>QR-Universal Scanner</title>
         <module href="/components/head.html"></module>
     </head>
 
     <body>
-        <h1>Static Website Template</h1>
-        <div>test</div>
+        <h1>QR-Universal Scanner</h1>
+        <div id="loadingMessage" hidden="">🎥 Unable to access video stream (please make sure you have a webcam enabled)</div>
+        <canvas id="canvas" height="480" width="640"></canvas>
+        <div id="output">
+            <div id="outputMessage">No QR code detected.</div>
+            <div hidden=""><b>Data:</b> <span id="outputData"></span></div>
+        </div>
         <script src="./bundle.js"></script>
     </body>
 </html>
