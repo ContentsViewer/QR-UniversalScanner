@@ -6,25 +6,37 @@
     </head>
 
     <body>
-        <h1>QR-Universal Scanner</h1>
-        <nav>
-            <div class="nav nav-tabs" id="nav-tab" role="tablist">
-            <a class="nav-link active" id="nav-camera-tab" data-bs-toggle="tab" href="#nav-camera" role="tab" aria-controls="nav-camera" aria-selected="true">Camera</a>
-            <a class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Clipboard</a>
+        <div class="card">
+            <div class="card-body">
+                <h1 class="card-title">QR-Universal Scanner</h1>
+                <!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> -->
+
+
+                <nav>
+                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                    <a class="nav-link active" id="nav-camera-tab" data-bs-toggle="tab" href="#nav-camera" role="tab" aria-controls="nav-camera" aria-selected="true">Camera</a>
+                    <a class="nav-link" id="nav-clipboard-tab" data-bs-toggle="tab" href="#nav-clipboard" role="tab" aria-controls="nav-clipboard" aria-selected="false">Clipboard</a>
+                    </div>
+                </nav>
+                <div class="tab-content" id="nav-tabContent">
+                    <div class="tab-pane fade show active" id="nav-camera" role="tabpanel" aria-labelledby="nav-camera-tab">
+                        <div id="loadingMessage">🎥 Unable to access video stream (please make sure you have a webcam enabled)</div>
+                        <canvas id="videoCanvas" height="480" width="640"></canvas>
+                    </div>
+                    <div class="tab-pane fade" id="nav-clipboard" role="tabpanel" aria-labelledby="nav-clipboard-tab">
+                        
+                    </div>
+                </div>
+        
+                <div id="output">
+                    <div id="outputMessage">No QR code detected.</div>
+                    <div hidden=""><b>Data:</b> <span id="outputData"></span></div>
+                </div>
+                <a href="#" class="card-link">Card link</a>
+                <a href="#" class="card-link">Another link</a>
             </div>
-        </nav>
-        <div class="tab-content" id="nav-tabContent">
-            <div class="tab-pane fade show active" id="nav-camera" role="tabpanel" aria-labelledby="nav-camera-tab">
-                <div id="loadingMessage">🎥 Unable to access video stream (please make sure you have a webcam enabled)</div>
-                <canvas id="canvas" height="480" width="640"></canvas>
-            </div>
-            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">...</div>
         </div>
 
-        <div id="output">
-            <div id="outputMessage">No QR code detected.</div>
-            <div hidden=""><b>Data:</b> <span id="outputData"></span></div>
-        </div>
         <script src="./bundle.js"></script>
     </body>
 </html>
