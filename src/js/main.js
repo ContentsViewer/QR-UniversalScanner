@@ -1,5 +1,8 @@
+import 'bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-const jsQR = require("jsqr");
+import jsQR from "jsqr";
+
 
 var video = document.createElement("video");
 var canvasElement = document.getElementById("canvas");
