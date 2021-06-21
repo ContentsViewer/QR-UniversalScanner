@@ -1,42 +1,105 @@
 <!DOCTYPE html>
 <html lang="ja">
-    <head>
-        <title>QR-Universal Scanner</title>
-        <module href="/components/head.html"></module>
-    </head>
 
-    <body>
-        <div class="card">
-            <div class="card-body">
-                <h1 class="card-title">QR-Universal Scanner</h1>
-                <!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> -->
+<head>
+  <title>QR-Universal Scanner</title>
+  <module href="/components/head.html"></module>
+</head>
 
+<body>
+  <div class="card">
+    <div class="card-body">
+      <h1 class="card-title">QR-Universal Scanner</h1>
+      <!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> -->
 
-                <nav>
-                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                    <a class="nav-link active" id="nav-camera-tab" data-bs-toggle="tab" href="#nav-camera" role="tab" aria-controls="nav-camera" aria-selected="true">Camera</a>
-                    <a class="nav-link" id="nav-clipboard-tab" data-bs-toggle="tab" href="#nav-clipboard" role="tab" aria-controls="nav-clipboard" aria-selected="false">Clipboard</a>
-                    </div>
-                </nav>
-                <div class="tab-content" id="nav-tabContent">
-                    <div class="tab-pane fade show active" id="nav-camera" role="tabpanel" aria-labelledby="nav-camera-tab">
-                        <div id="loadingMessage">🎥 Unable to access video stream (please make sure you have a webcam enabled)</div>
-                        <canvas id="videoCanvas" hidden></canvas>
-                    </div>
-                    <div class="tab-pane fade" id="nav-clipboard" role="tabpanel" aria-labelledby="nav-clipboard-tab">
-                        
-                    </div>
-                </div>
-        
-                <div id="output">
-                    <div id="outputMessage">No QR code detected.</div>
-                    <div hidden=""><b>Data:</b> <span id="outputData"></span></div>
-                </div>
-                <a href="#" class="card-link">Card link</a>
-                <a href="#" class="card-link">Another link</a>
-            </div>
+      <div class="card">
+        <div class="card-header">
+          <ul class="nav nav-tabs card-header-tabs">
+            <li class="nav-item">
+              <a class="nav-link active" id="mode-camera-tab" data-bs-toggle="tab" href="#mode-camera" role="tab"
+              aria-controls="mode-camera" aria-selected="true">Camera</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="mode-clipboard-tab" data-bs-toggle="tab" href="#mode-clipboard" role="tab"
+              aria-controls="mode-clipboard" aria-selected="false">Clipboard</a>
+            </li>
+          </ul>
         </div>
 
-        <script src="./bundle.js"></script>
-    </body>
+        <div class="tab-content" id="nav-tabContent">
+          <div class="tab-pane fade show active" id="mode-camera" role="tabpanel" aria-labelledby="mode-camera-tab">
+            <div class="card-body">
+              <div class="text-center">
+                <button type="button" id="openCameraButton" class="btn btn-primary">Open camera 🎥</button>
+                <div id="cameraDeviceMessage" class="alert alert-primary" hidden role="alert"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="tab-pane fade" id="mode-clipboard" role="tabpanel" aria-labelledby="mode-clipboard-tab">
+
+          </div>
+        </div>
+
+
+
+      </div>
+
+      <!-- <nav>
+        <div class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
+          <a class="nav-link active" id="nav-camera-tab" data-bs-toggle="tab" href="#nav-camera" role="tab"
+            aria-controls="nav-camera" aria-selected="true">Camera</a>
+          <a class="nav-link" id="nav-clipboard-tab" data-bs-toggle="tab" href="#nav-clipboard" role="tab"
+            aria-controls="nav-clipboard" aria-selected="false">Clipboard</a>
+        </div>
+      </nav> -->
+
+      <!-- <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-camera" role="tabpanel" aria-labelledby="nav-camera-tab">
+          <div class="card">
+            <div class="card-body">
+              <div style="text-align: center;">
+                
+              </div> -->
+
+
+      <!-- <div id="loadingMessage">🎥 Unable to access video stream (please make sure you have a webcam enabled)</div> -->
+      <!--    <canvas id="videoCanvas" hidden></canvas>
+
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane fade" id="nav-clipboard" role="tabpanel" aria-labelledby="nav-clipboard-tab">
+
+        </div>
+      </div> -->
+
+      <div style="text-align: center;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down"
+          viewBox="0 0 16 16">
+          <path fill-rule="evenodd"
+            d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+        </svg>
+      </div>
+
+
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Output</h5>
+          <div id="outputMessage">No QR code detected.</div>
+        </div>
+      </div>
+      <!-- 
+                <div id="output">
+                    <div hidden=""><b>Data:</b> <span id="outputData"></span></div>
+                </div> -->
+
+      <a href="#" class="card-link">Card link</a>
+      <a href="#" class="card-link">Another link</a>
+    </div>
+  </div>
+
+  <script src="./bundle.js"></script>
+</body>
+
 </html>

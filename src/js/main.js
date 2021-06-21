@@ -2,6 +2,7 @@ import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import jsQR from "jsqr";
+import $ from "jquery";
 
 
 var video = document.createElement("video");
@@ -10,6 +11,38 @@ var loadingMessage = document.getElementById("loadingMessage");
 var outputContainer = document.getElementById("output");
 var outputMessage = document.getElementById("outputMessage");
 var outputData = document.getElementById("outputData");
+
+// var openCameraButton = document.getElementById("openCameraButton")
+// openCameraButton.addEventListener('click', function() {
+//     this.hidden = true
+// })
+
+document.getElementById('openCameraButton')?.addEventListener('click', function () {
+    this.hidden = true
+
+    var cameraDeviceMessage = document.getElementById('cameraDeviceMessage');
+    cameraDeviceMessage.textContent = "⌛ Loading video...";
+    cameraDeviceMessage.hidden = false
+    
+    // Use facingMode: environment to attemt to get the front camera on phones
+    navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } }).then(function(stream) {
+        video.srcObject = stream;
+        video.setAttribute("playsinline", true); // required to tell iOS safari we don't want fullscreen
+        video.play();
+        // requestAnimationFrame(tick);
+    }).catch((e) => {
+        console.error(e);
+        cameraDeviceMessage.innerHTML = "🎥 Unable to access video stream <br> (please make sure you have a webcam enabled)";
+    });
+})
+
+// $('#openCameraButton').on('click', function () {
+   
+//     $(this).hide()
+
+//     $('#cameraDeviceMessage').toggle()
+
+// })
 
 function drawLine(ctx, begin, end, color) {
     ctx.beginPath();
@@ -20,13 +53,7 @@ function drawLine(ctx, begin, end, color) {
     ctx.stroke();
 }
 
-// Use facingMode: environment to attemt to get the front camera on phones
-navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } }).then(function(stream) {
-    video.srcObject = stream;
-    video.setAttribute("playsinline", true); // required to tell iOS safari we don't want fullscreen
-    video.play();
-    requestAnimationFrame(tick);
-});
+
 
 function tick() {
     loadingMessage.innerText = "⌛ Loading video..."
