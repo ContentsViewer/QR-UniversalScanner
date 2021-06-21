@@ -16,20 +16,33 @@ var closeCameraButton = document.getElementById('closeCameraButton');
 
 var requestCameraClose = false;
 
-new MutationObserver(function (mutationsList, observer) {
-    var target = mutationsList[0].target;
-    if (target.classList.contains('active')) {
-        if (!video.srcObject) {
-            openCameraButton.hidden = false;
-            closeCameraButton.hidden = true;
-            videoCanvas.hidden = true;
-            cameraDeviceMessage.hidden = true;
+new MutationObserver(function () {
+    var prevActive = document.getElementById('mode-camera').classList.contains('active');
+
+    return function onAttributesChanged(mutationsList, observer) {
+        var target = mutationsList[0].target;
+        var active = target.classList.contains('active');
+
+        if (active === prevActive) {
+            return;
         }
+
+        if (active) {
+            console.log('active')
+            if (!video.srcObject) {
+                openCameraButton.hidden = false;
+                closeCameraButton.hidden = true;
+                videoCanvas.hidden = true;
+                cameraDeviceMessage.hidden = true;
+            }
+        }
+        else {
+            console.log('disactive')
+            requestCameraClose = true;
+        }
+        prevActive = active;
     }
-    else {
-        requestCameraClose = true;
-    }
-}).observe(document.getElementById('mode-camera'), { attributes: true })
+}()).observe(document.getElementById('mode-camera'), { attributes: true })
 
 
 openCameraButton.addEventListener('click', function () {
