@@ -11,25 +11,73 @@ var outputContainer = document.getElementById("output");
 var outputMessage = document.getElementById("outputMessage");
 var outputData = document.getElementById("outputData");
 var cameraDeviceMessage = document.getElementById('cameraDeviceMessage');
+var openCameraButton = document.getElementById('openCameraButton');
+var closeCameraButton = document.getElementById('closeCameraButton');
+
+var requestCameraClose = false;
+
+new MutationObserver(function (mutationsList, observer) {
+    var target = mutationsList[0].target;
+    if (target.classList.contains('active')) {
+        if (!video.srcObject) {
+            openCameraButton.hidden = false;
+            closeCameraButton.hidden = true;
+            videoCanvas.hidden = true;
+            cameraDeviceMessage.hidden = true;
+        }
+    }
+    else {
+        requestCameraClose = true;
+    }
+}).observe(document.getElementById('mode-camera'), { attributes: true })
 
 
-document.getElementById('openCameraButton')?.addEventListener('click', function () {
+openCameraButton.addEventListener('click', function () {
     this.hidden = true
-
     cameraDeviceMessage.textContent = "⌛ Loading video...";
     cameraDeviceMessage.hidden = false
-    
+    requestCameraClose = false;
+
     // Use facingMode: environment to attemt to get the front camera on phones
-    navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } }).then(function(stream) {
+    navigator.mediaDevices.getUserMedia({
+        video: { facingMode: "environment" }
+    }).then((stream) => {
         video.srcObject = stream;
         video.setAttribute("playsinline", true); // required to tell iOS safari we don't want fullscreen
-        video.play();
+        return video.play();
+    }).then(() => {
         requestAnimationFrame(tick);
+        closeCameraButton.hidden = false;
     }).catch((e) => {
         console.error(e);
         cameraDeviceMessage.innerHTML = "🎥 Unable to access video stream <br> (please make sure you have a webcam enabled)";
     });
 })
+
+closeCameraButton.addEventListener('click', function () {
+    this.hidden = true;
+    closeCamera();
+    videoCanvas.hidden = true;
+    openCameraButton.hidden = false;
+})
+
+
+/**
+ * Note:
+ *  * <https://developer.mozilla.org/en-US/docs/Web/API/MediaStreamTrack/stop>
+ */
+function closeCamera() {
+    if (!video.srcObject) {
+        return;
+    }
+    const stream = video.srcObject;
+    const tracks = stream.getTracks();
+
+    tracks.forEach(function (track) {
+        track.stop();
+    });
+    video.srcObject = null;
+}
 
 
 function drawLine(ctx, begin, end, color) {
@@ -41,9 +89,12 @@ function drawLine(ctx, begin, end, color) {
     ctx.stroke();
 }
 
-
-
 function tick() {
+    if (requestCameraClose) {
+        closeCamera();
+        return;
+    }
+
     if (video.readyState === video.HAVE_ENOUGH_DATA) {
         var ctx = videoCanvas.getContext("2d");
 
