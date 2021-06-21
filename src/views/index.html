@@ -17,11 +17,11 @@
           <ul class="nav nav-tabs card-header-tabs">
             <li class="nav-item">
               <a class="nav-link active" id="mode-camera-tab" data-bs-toggle="tab" href="#mode-camera" role="tab"
-              aria-controls="mode-camera" aria-selected="true">Camera</a>
+                aria-controls="mode-camera" aria-selected="true">Camera</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" id="mode-clipboard-tab" data-bs-toggle="tab" href="#mode-clipboard" role="tab"
-              aria-controls="mode-clipboard" aria-selected="false">Clipboard</a>
+                aria-controls="mode-clipboard" aria-selected="false">Clipboard</a>
             </li>
           </ul>
         </div>
@@ -33,11 +33,16 @@
                 <button type="button" id="openCameraButton" class="btn btn-primary">Open camera 🎥</button>
                 <div id="cameraDeviceMessage" class="alert alert-primary" hidden role="alert"></div>
               </div>
+              <canvas id="videoCanvas" hidden></canvas>
             </div>
           </div>
 
           <div class="tab-pane fade" id="mode-clipboard" role="tabpanel" aria-labelledby="mode-clipboard-tab">
-
+            <div class="card-body">
+              <div contenteditable="true" width="50px" height="50px">
+                paste image here
+                </div>
+            </div>
           </div>
         </div>
 
@@ -64,7 +69,7 @@
 
 
       <!-- <div id="loadingMessage">🎥 Unable to access video stream (please make sure you have a webcam enabled)</div> -->
-      <!--    <canvas id="videoCanvas" hidden></canvas>
+      <!--    
 
             </div>
           </div>
@@ -90,12 +95,13 @@
         </div>
       </div>
       <!-- 
-                <div id="output">
-                    <div hidden=""><b>Data:</b> <span id="outputData"></span></div>
-                </div> -->
+      <div id="output">
+          <div hidden=""><b>Data:</b> <span id="outputData"></span></div>
+      </div> -->
 
       <a href="#" class="card-link">Card link</a>
       <a href="#" class="card-link">Another link</a>
+      <p class="card-text"><small class="text-muted">v0.0.0</small></p>
     </div>
   </div>
 

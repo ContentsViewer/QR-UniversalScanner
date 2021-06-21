@@ -7,20 +7,15 @@ import $ from "jquery";
 
 var video = document.createElement("video");
 var videoCanvas = document.getElementById("videoCanvas");
-var loadingMessage = document.getElementById("loadingMessage");
 var outputContainer = document.getElementById("output");
 var outputMessage = document.getElementById("outputMessage");
 var outputData = document.getElementById("outputData");
+var cameraDeviceMessage = document.getElementById('cameraDeviceMessage');
 
-// var openCameraButton = document.getElementById("openCameraButton")
-// openCameraButton.addEventListener('click', function() {
-//     this.hidden = true
-// })
 
 document.getElementById('openCameraButton')?.addEventListener('click', function () {
     this.hidden = true
 
-    var cameraDeviceMessage = document.getElementById('cameraDeviceMessage');
     cameraDeviceMessage.textContent = "⌛ Loading video...";
     cameraDeviceMessage.hidden = false
     
@@ -29,20 +24,13 @@ document.getElementById('openCameraButton')?.addEventListener('click', function 
         video.srcObject = stream;
         video.setAttribute("playsinline", true); // required to tell iOS safari we don't want fullscreen
         video.play();
-        // requestAnimationFrame(tick);
+        requestAnimationFrame(tick);
     }).catch((e) => {
         console.error(e);
         cameraDeviceMessage.innerHTML = "🎥 Unable to access video stream <br> (please make sure you have a webcam enabled)";
     });
 })
 
-// $('#openCameraButton').on('click', function () {
-   
-//     $(this).hide()
-
-//     $('#cameraDeviceMessage').toggle()
-
-// })
 
 function drawLine(ctx, begin, end, color) {
     ctx.beginPath();
@@ -56,13 +44,12 @@ function drawLine(ctx, begin, end, color) {
 
 
 function tick() {
-    loadingMessage.innerText = "⌛ Loading video..."
     if (video.readyState === video.HAVE_ENOUGH_DATA) {
         var ctx = videoCanvas.getContext("2d");
 
-        loadingMessage.hidden = true;
+        cameraDeviceMessage.hidden = true;
         videoCanvas.hidden = false;
-        outputContainer.hidden = false;
+        // outputContainer.hidden = false;
 
         videoCanvas.height = video.videoHeight;
         videoCanvas.width = video.videoWidth;
@@ -76,12 +63,12 @@ function tick() {
             drawLine(ctx, code.location.topRightCorner, code.location.bottomRightCorner, "#FF3B58");
             drawLine(ctx, code.location.bottomRightCorner, code.location.bottomLeftCorner, "#FF3B58");
             drawLine(ctx, code.location.bottomLeftCorner, code.location.topLeftCorner, "#FF3B58");
-            outputMessage.hidden = true;
-            outputData.parentElement.hidden = false;
-            outputData.innerText = code.data;
+            // outputMessage.hidden = true;
+            // outputData.parentElement.hidden = false;
+            // outputData.innerText = code.data;
         } else {
-            outputMessage.hidden = false;
-            outputData.parentElement.hidden = true;
+            // outputMessage.hidden = false;
+            // outputData.parentElement.hidden = true;
         }
     }
     requestAnimationFrame(tick);
