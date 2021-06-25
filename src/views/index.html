@@ -29,7 +29,8 @@
         <div class="tab-content" id="nav-tabContent" style="flex-grow: 1;">
           <div class="tab-pane fade show active" id="mode-camera" style="height: 100%;" role="tabpanel"
             aria-labelledby="mode-camera-tab">
-            <div class="card-body" style="height: 100%; display: flex; flex-direction: column;     justify-content: center">
+            <div class="card-body"
+              style="height: 100%; display: flex; flex-direction: column;     justify-content: center">
               <div class="text-center">
                 <button type="button" id="openCameraButton" class="btn btn-primary">Open camera 🎥</button>
                 <div id="cameraDeviceMessage" class="alert alert-primary" hidden role="alert"></div>
@@ -79,8 +80,6 @@
                 
               </div> -->
 
-
-      <!-- <div id="loadingMessage">🎥 Unable to access video stream (please make sure you have a webcam enabled)</div> -->
       <!--    
 
             </div>
@@ -103,21 +102,40 @@
       <div class="card">
         <div class="card-body">
           <h5 class="card-title">Output</h5>
-          <div id="outputMessage">No QR code detected.</div>
+          <div id="outputMessage" class="alert alert-primary" role="alert">No QR code detected.</div>
+          <div hidden style="display: flex; align-items: center;">
+            <div id="outputData" style="flex: 1 1 auto"></div>
+            <div style="width: 1rem;"></div>
+            <button id="copyButton" type="button" class="btn btn-outline-secondary btn-sm copy-button"
+              data-bs-placement="top" title="Copied!" data-bs-trigger="manual">
+              <div style="display: none;" class="clipboard-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                  class="bi bi-clipboard" viewBox="0 0 16 16">
+                  <path
+                    d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z" />
+                  <path
+                    d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z" />
+                </svg>
+              </div>
+              <div style="display: none;" class="check-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2"
+                  viewBox="0 0 16 16">
+                  <path
+                    d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+                </svg>
+              </div>
+            </button>
+          </div>
         </div>
       </div>
-      <!-- 
-      <div id="output">
-          <div hidden=""><b>Data:</b> <span id="outputData"></span></div>
-      </div> -->
 
       <p class="card-text small" style="display: flex; align-items: flex-end; justify-content: flex-end">
-
-        <a href="https://contentsviewer.work/Master/WebTool/QR-UniversalScanner/app" class="card-link"  target="_blank">About</a>
-        <a href="https://github.com/ContentsViewer/QR-UniversalScanner" class="card-link"  target="_blank">Github</a>
+        <a href="https://contentsviewer.work/Master/WebTool/QR-UniversalScanner/app" class="card-link"
+          target="_blank">About</a>
+        <a href="https://github.com/ContentsViewer/QR-UniversalScanner" class="card-link" target="_blank">Github</a>
 
         <small class="text-muted card-link">v0.0.0</small>
-        </>
+      </p>
     </div>
   </div>
 

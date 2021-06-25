@@ -1,18 +1,21 @@
-import 'bootstrap';
+import * as bootstrap from 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+// import { Tooltip } from 'bootstrap';
+// bootstrap.Tooltip
 import jsQR from "jsqr";
-import $ from "jquery";
+// import $ from "jquery";
 
 
 var video = document.createElement("video");
 var videoCanvas = document.getElementById("videoCanvas");
-var outputContainer = document.getElementById("output");
+// var outputContainer = document.getElementById("output");
 var outputMessage = document.getElementById("outputMessage");
 var outputData = document.getElementById("outputData");
 var cameraDeviceMessage = document.getElementById('cameraDeviceMessage');
 var openCameraButton = document.getElementById('openCameraButton');
 var closeCameraButton = document.getElementById('closeCameraButton');
+var copyButton = document.getElementById('copyButton');
+var copyButtonTooltip = new bootstrap.Tooltip(copyButton)
 
 var requestCameraClose = false;
 
@@ -74,6 +77,17 @@ closeCameraButton.addEventListener('click', function () {
     openCameraButton.hidden = false;
 })
 
+copyButton.addEventListener('click', function () {
+    
+    copyButtonTooltip.show()
+    copyButton.classList.toggle('btn-outline-secondary')
+    copyButton.classList.toggle('btn-outline-success')
+    setTimeout(() => {
+        copyButtonTooltip.hide()
+        copyButton.classList.toggle('btn-outline-secondary')
+        copyButton.classList.toggle('btn-outline-success')
+    }, 2000)
+})
 
 /**
  * Note:
@@ -127,13 +141,32 @@ function tick() {
             drawLine(ctx, code.location.topRightCorner, code.location.bottomRightCorner, "#FF3B58");
             drawLine(ctx, code.location.bottomRightCorner, code.location.bottomLeftCorner, "#FF3B58");
             drawLine(ctx, code.location.bottomLeftCorner, code.location.topLeftCorner, "#FF3B58");
-            // outputMessage.hidden = true;
-            // outputData.parentElement.hidden = false;
-            // outputData.innerText = code.data;
-        } else {
-            // outputMessage.hidden = false;
-            // outputData.parentElement.hidden = true;
+
+            sendOutput(code.data)
         }
     }
     requestAnimationFrame(tick);
 }
+
+var sendOutput = (() => {
+    var prevData = null
+    
+    return (data) => {
+        outputMessage.hidden = true;
+        outputData.parentNode.hidden = false;
+
+        if (prevData && prevData === data) {
+            return
+        }
+
+        outputData.innerText = data;
+        console.log(outputData.innerHTML)
+        
+        // NOTE:
+        //  <https://regexr.com/3um70>
+        outputData.innerHTML = outputData.innerHTML.replace(/(https?):\/\/[^\s$.?#].[^\s]*/, (url) => {
+            return '<a href="' + url + '" target="_blank">' + url + '</a>'
+        })
+        prevData = data
+    }
+})()

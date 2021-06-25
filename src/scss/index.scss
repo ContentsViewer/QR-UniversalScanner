@@ -14,3 +14,10 @@ body {
     flex-direction: column;
 }
 
+.copy-button.btn-outline-secondary > .clipboard-icon {
+    display: block !important;
+}
+
+.copy-button.btn-outline-success > .check-icon {
+    display: block !important;
+}
