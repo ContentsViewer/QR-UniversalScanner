@@ -1,17 +1,16 @@
 @import 'variables.scss';
 
+html {
+    height: 100% !important;
+}
 
 body {
     background-color: transparent !important;
+    height: 100% !important;
 }
 
-
-#loadingMessage {
-    text-align: center;
-    padding: 40px;
-    background-color: #eee;
+.root-card-body {
+    display: flex;
+    flex-direction: column;
 }
 
-#videoCanvas {
-    width: 100%;
-}
