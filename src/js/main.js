@@ -6,7 +6,6 @@ import jsQR from "jsqr";
 
 var video = document.createElement("video");
 var videoCanvas = document.getElementById("videoCanvas");
-// var outputContainer = document.getElementById("output");
 var outputMessage = document.getElementById("outputMessage");
 var outputData = document.getElementById("outputData");
 var cameraDeviceMessage = document.getElementById('cameraDeviceMessage');

@@ -36,6 +36,7 @@
                 <div id="cameraDeviceMessage" class="alert alert-primary" hidden role="alert"></div>
               </div>
               <canvas id="videoCanvas" style="object-fit: contain; width: 100%; max-height: 50vh" hidden></canvas>
+              <div class="m-1"></div>
               <div class="" style="align-self: center;">
                 <button type="button" hidden id="closeCameraButton" class="btn btn-outline-danger btn-sm">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x"
@@ -61,7 +62,7 @@
                 </svg>
                 Paste
               </button>
-              <div style="height: 1rem;"></div>
+              <div class="m-3"></div>
               <div id="clipboardMessage" class="alert alert-primary text-center" style="align-self: stretch;" hidden role="alert"></div>
               <canvas id="clipboardCanvas" style="max-width: 50vw; max-height: 50vh; object-fit: contain;" hidden></canvas>
             </div>
@@ -85,7 +86,7 @@
           <div id="outputMessage" class="alert alert-primary" role="alert">No QR code detected.</div>
           <div hidden style="display: flex; align-items: center;">
             <div id="outputData" class="text-break" style="flex: 1 1 auto;"></div>
-            <div style="width: 1rem;"></div>
+            <div class="ms-3"></div>
             <button id="copyButton" type="button" class="btn btn-outline-secondary btn-sm copy-button"
               data-bs-placement="top" title="Copied!" data-bs-trigger="manual">
               <div style="display: none;" class="clipboard-icon">
