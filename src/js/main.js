@@ -89,6 +89,7 @@ copyButton.addEventListener('click', function () {
         copyButton.classList.remove('btn-outline-secondary')
         copyButton.classList.add('btn-outline-success')
         setTimeout(() => {
+            console.log('asa')
             copyButtonTooltip.hide()
             copyButton.classList.add('btn-outline-secondary')
             copyButton.classList.remove('btn-outline-success')
@@ -100,6 +101,7 @@ copyButton.addEventListener('click', function () {
 
 pasteButton.addEventListener('click', function () {
     clipboardMessage.hidden = true
+    clipboardCanvas.hidden = true
 
     navigator.clipboard.read().then(data => {
         for (let i = 0; i < data.length; i++) {
