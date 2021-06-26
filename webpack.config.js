@@ -1,3 +1,5 @@
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin')
+
 module.exports = {
     entry: './src/js/main.js',
     output: {
@@ -19,5 +21,8 @@ module.exports = {
             test: /\.css$/,
             use: ['style-loader', 'css-loader']
         }]
-    }
+    },
+    plugins: [
+        new FaviconsWebpackPlugin()
+    ]
 }

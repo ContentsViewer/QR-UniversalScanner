@@ -1,7 +1,5 @@
 import * as bootstrap from 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-// import { Tooltip } from 'bootstrap';
-// bootstrap.Tooltip
 import jsQR from "jsqr";
 // import $ from "jquery";
 
@@ -15,7 +13,10 @@ var cameraDeviceMessage = document.getElementById('cameraDeviceMessage');
 var openCameraButton = document.getElementById('openCameraButton');
 var closeCameraButton = document.getElementById('closeCameraButton');
 var copyButton = document.getElementById('copyButton');
-var copyButtonTooltip = new bootstrap.Tooltip(copyButton)
+var copyButtonTooltip = new bootstrap.Tooltip(copyButton);
+var pasteButton = document.getElementById('pasteButton');
+var clipboardCanvas = document.getElementById('clipboardCanvas')
+var clipboardMessage = document.getElementById('clipboardMessage')
 
 var requestCameraClose = false;
 
@@ -47,6 +48,10 @@ new MutationObserver(function () {
     }
 }()).observe(document.getElementById('mode-camera'), { attributes: true })
 
+document.getElementById('mode-clipboard-tab').addEventListener('click', () => {
+    clipboardCanvas.hidden = true
+    clipboardMessage.hidden = true
+})
 
 openCameraButton.addEventListener('click', function () {
     this.hidden = true
@@ -78,15 +83,61 @@ closeCameraButton.addEventListener('click', function () {
 })
 
 copyButton.addEventListener('click', function () {
-    
-    copyButtonTooltip.show()
-    copyButton.classList.toggle('btn-outline-secondary')
-    copyButton.classList.toggle('btn-outline-success')
-    setTimeout(() => {
-        copyButtonTooltip.hide()
-        copyButton.classList.toggle('btn-outline-secondary')
-        copyButton.classList.toggle('btn-outline-success')
-    }, 2000)
+    navigator.clipboard.writeText(outputData.innerText
+    ).then(() => {
+        copyButtonTooltip.show()
+        copyButton.classList.remove('btn-outline-secondary')
+        copyButton.classList.add('btn-outline-success')
+        setTimeout(() => {
+            copyButtonTooltip.hide()
+            copyButton.classList.add('btn-outline-secondary')
+            copyButton.classList.remove('btn-outline-success')
+        }, 2000)
+    }).catch((e) => {
+        console.error(e)
+    })
+})
+
+pasteButton.addEventListener('click', function () {
+    clipboardMessage.hidden = true
+
+    navigator.clipboard.read().then(data => {
+        for (let i = 0; i < data.length; i++) {
+            const img = data[i];
+            for (const type of img.types) {
+                if (type.indexOf('image') != -1) {
+                    return img.getType(type)
+                }
+            }
+        }
+        throw new Error('NotImage')
+    }).then(blob => {
+        return new Promise((resolve, reject) => {
+            const img = new Image();
+            img.onload = function () {
+                resolve(img)
+            }
+            img.src = URL.createObjectURL(blob);
+        })
+    }).then(img => {
+        clipboardCanvas.hidden = false
+        let ctx = clipboardCanvas.getContext("2d")
+        clipboardCanvas.width = img.width;
+        clipboardCanvas.height = img.height;
+        ctx.drawImage(img, 0, 0, clipboardCanvas.width, clipboardCanvas.height);
+
+        scanCode(clipboardCanvas)
+    }).catch(error => {
+        console.error(error)
+        if (error.message === "NotImage") {
+            clipboardMessage.hidden = false
+            clipboardMessage.innerHTML = "Not image"
+        }
+        else {
+            clipboardMessage.hidden = false
+            clipboardMessage.innerHTML = "🗒 Unnable to access clipboard <br> (please make sure you enable clipboard access)"
+        }
+    })
 })
 
 /**
@@ -104,6 +155,22 @@ function closeCamera() {
         track.stop();
     });
     video.srcObject = null;
+}
+
+function scanCode(canvas) {
+    let ctx = canvas.getContext('2d')
+    var imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    var code = jsQR(imageData.data, imageData.width, imageData.height, {
+        inversionAttempts: "dontInvert",
+    });
+    if (code) {
+        drawLine(ctx, code.location.topLeftCorner, code.location.topRightCorner, "#FF3B58");
+        drawLine(ctx, code.location.topRightCorner, code.location.bottomRightCorner, "#FF3B58");
+        drawLine(ctx, code.location.bottomRightCorner, code.location.bottomLeftCorner, "#FF3B58");
+        drawLine(ctx, code.location.bottomLeftCorner, code.location.topLeftCorner, "#FF3B58");
+
+        sendOutput(code.data)
+    }
 }
 
 
@@ -127,30 +194,19 @@ function tick() {
 
         cameraDeviceMessage.hidden = true;
         videoCanvas.hidden = false;
-        // outputContainer.hidden = false;
 
         videoCanvas.height = video.videoHeight;
         videoCanvas.width = video.videoWidth;
         ctx.drawImage(video, 0, 0, videoCanvas.width, videoCanvas.height);
-        var imageData = ctx.getImageData(0, 0, videoCanvas.width, videoCanvas.height);
-        var code = jsQR(imageData.data, imageData.width, imageData.height, {
-            inversionAttempts: "dontInvert",
-        });
-        if (code) {
-            drawLine(ctx, code.location.topLeftCorner, code.location.topRightCorner, "#FF3B58");
-            drawLine(ctx, code.location.topRightCorner, code.location.bottomRightCorner, "#FF3B58");
-            drawLine(ctx, code.location.bottomRightCorner, code.location.bottomLeftCorner, "#FF3B58");
-            drawLine(ctx, code.location.bottomLeftCorner, code.location.topLeftCorner, "#FF3B58");
 
-            sendOutput(code.data)
-        }
+        scanCode(videoCanvas)
     }
     requestAnimationFrame(tick);
 }
 
 var sendOutput = (() => {
     var prevData = null
-    
+
     return (data) => {
         outputMessage.hidden = true;
         outputData.parentNode.hidden = false;
@@ -161,7 +217,7 @@ var sendOutput = (() => {
 
         outputData.innerText = data;
         console.log(outputData.innerHTML)
-        
+
         // NOTE:
         //  <https://regexr.com/3um70>
         outputData.innerHTML = outputData.innerHTML.replace(/(https?):\/\/[^\s$.?#].[^\s]*/, (url) => {
