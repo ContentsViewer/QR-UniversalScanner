@@ -1,1 +1,131 @@
-<!DOCTYPE html><html lang="ja"><head><title>QR-Universal Scanner</title><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" type="text/css" href="./index.css"><link rel="icon" href="assets/favicon.png"></head><body> <div class="card" style="height:100%;overflow:auto"> <div class="card-body root-card-body"> <h1 class="card-title">QR-Universal Scanner</h1>  <div class="card" style="flex-grow:1"> <div class="card-header"> <ul class="card-header-tabs nav nav-tabs"> <li class="nav-item"> <a class="active nav-link" id="mode-camera-tab" data-bs-toggle="tab" href="#mode-camera" role="tab" aria-controls="mode-camera" aria-selected="true">Camera</a> </li> <li class="nav-item"> <a class="nav-link" id="mode-clipboard-tab" data-bs-toggle="tab" href="#mode-clipboard" role="tab" aria-controls="mode-clipboard" aria-selected="false">Clipboard</a> </li> </ul> </div> <div class="tab-content" id="nav-tabContent" style="flex-grow:1"> <div class="active fade show tab-pane" id="mode-camera" style="height:100%" role="tabpanel" aria-labelledby="mode-camera-tab"> <div class="card-body" style="display:flex;flex-direction:column;height:100%;justify-content:center"> <div class="text-center"> <button type="button" id="openCameraButton" class="btn btn-primary">Open camera 🎥</button> <div id="cameraDeviceMessage" class="alert alert-primary" hidden role="alert"></div> </div> <canvas id="videoCanvas" style="max-height:50vh;object-fit:contain;width:100%" hidden></canvas> <div class="m-1"></div> <div style="align-self:center"> <button type="button" hidden id="closeCameraButton" class="btn btn-outline-danger btn-sm"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg> Close camera </button> </div> </div> </div> <div class="fade tab-pane" id="mode-clipboard" role="tabpanel" aria-labelledby="mode-clipboard-tab"> <div class="card-body" style="align-items:center;display:flex;flex-direction:column"> <button id="pasteButton" type="button" class="btn btn-primary"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard"><path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/><path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/></svg> Paste </button> <div class="m-3"></div> <div id="clipboardMessage" class="alert alert-primary text-center" style="align-self:stretch" hidden role="alert"></div> <canvas id="clipboardCanvas" style="max-height:50vh;max-width:50vw;object-fit:contain" hidden></canvas> </div> </div> </div> </div> <div style="text-align:center"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg> </div> <div class="card"> <div class="card-body"> <h5 class="card-title">Output</h5> <div id="outputMessage" class="alert alert-primary" role="alert">No QR code detected.</div> <div hidden style="align-items:center;display:flex"> <div id="outputData" class="text-break" style="flex:1 1 auto"></div> <div class="ms-3"></div> <button id="copyButton" type="button" class="btn btn-outline-secondary btn-sm copy-button" data-bs-placement="top" title="Copied!" data-bs-trigger="manual"> <div style="display:none" class="clipboard-icon"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard"><path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/><path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/></svg> </div> <div style="display:none" class="check-icon"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2"><path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/></svg> </div> </button> </div> </div> </div> <p class="card-text small" style="align-items:flex-end;display:flex;justify-content:flex-end"> <a href="https://contentsviewer.work/Master/WebTool/QR-UniversalScanner/app" class="card-link" target="_blank">About</a> <a href="https://github.com/ContentsViewer/QR-UniversalScanner" class="card-link" target="_blank">Github</a> <small class="card-link text-muted">v1.0.0</small> </p> </div> </div> <script src="./bundle.js"></script> </body></html>
+<!DOCTYPE html>
+<html lang="ja">
+
+
+<head>
+  <title>QR-Universal Scanner</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- <link rel="stylesheet" type="text/css" href="./index.css"> -->
+  <link rel="icon" href="assets/favicon.png">
+  <!-- <module href="/components/head.html"></module> -->
+<link rel="icon" href="assets/favicon.png"><script defer src="bundle.js"></script></head>
+
+<body>
+  <div class="card" style="height: 100%; overflow: auto;">
+    <div class="card-body root-card-body">
+      <h1 class="card-title">QR-Universal Scanner</h1>
+      <!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> -->
+
+      <div class="card" style="flex-grow: 1;">
+        <div class="card-header">
+          <ul class="nav nav-tabs card-header-tabs">
+            <li class="nav-item">
+              <a class="nav-link active" id="mode-camera-tab" data-bs-toggle="tab" href="#mode-camera" role="tab"
+                aria-controls="mode-camera" aria-selected="true">Camera</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="mode-clipboard-tab" data-bs-toggle="tab" href="#mode-clipboard" role="tab"
+                aria-controls="mode-clipboard" aria-selected="false">Clipboard</a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="tab-content" id="nav-tabContent" style="flex-grow: 1;">
+          <div class="tab-pane fade show active" id="mode-camera" style="height: 100%;" role="tabpanel"
+            aria-labelledby="mode-camera-tab">
+            <div class="card-body"
+              style="height: 100%; display: flex; flex-direction: column;     justify-content: center">
+              <div class="text-center">
+                <button type="button" id="openCameraButton" class="btn btn-primary">Open camera 🎥</button>
+                <div id="cameraDeviceMessage" class="alert alert-primary" hidden role="alert"></div>
+              </div>
+              <canvas id="videoCanvas" style="object-fit: contain; width: 100%; max-height: 50vh" hidden></canvas>
+              <div class="m-1"></div>
+              <div class="" style="align-self: center;">
+                <button type="button" hidden id="closeCameraButton" class="btn btn-outline-danger btn-sm">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x"
+                    viewBox="0 0 16 16">
+                    <path
+                      d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+                  </svg>
+                  Close camera
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="tab-pane fade" id="mode-clipboard" role="tabpanel" aria-labelledby="mode-clipboard-tab">
+            <div class="card-body" style="display: flex; flex-direction: column; align-items: center;">
+              <button id="pasteButton" type="button" class="btn btn-primary">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                  class="bi bi-clipboard" viewBox="0 0 16 16">
+                  <path
+                    d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z" />
+                  <path
+                    d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z" />
+                </svg>
+                Paste
+              </button>
+              <div class="m-3"></div>
+              <div id="clipboardMessage" class="alert alert-primary text-center" style="align-self: stretch;" hidden role="alert"></div>
+              <canvas id="clipboardCanvas" style="max-width: 50vw; max-height: 50vh; object-fit: contain;" hidden></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div style="text-align: center;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down"
+          viewBox="0 0 16 16">
+          <path fill-rule="evenodd"
+            d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+        </svg>
+      </div>
+
+
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Output</h5>
+          <div id="outputMessage" class="alert alert-primary" role="alert">No QR code detected.</div>
+          <div hidden style="display: flex; align-items: center;">
+            <div id="outputData" class="text-break" style="flex: 1 1 auto;"></div>
+            <div class="ms-3"></div>
+            <button id="copyButton" type="button" class="btn btn-outline-secondary btn-sm copy-button"
+              data-bs-placement="top" title="Copied!" data-bs-trigger="manual">
+              <div style="display: none;" class="clipboard-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                  class="bi bi-clipboard" viewBox="0 0 16 16">
+                  <path
+                    d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z" />
+                  <path
+                    d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z" />
+                </svg>
+              </div>
+              <div style="display: none;" class="check-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2"
+                  viewBox="0 0 16 16">
+                  <path
+                    d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+                </svg>
+              </div>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <p class="card-text small" style="display: flex; align-items: flex-end; justify-content: flex-end">
+        <a href="https://contentsviewer.work/Master/WebTool/QR-UniversalScanner/app" class="card-link"
+          target="_blank">About</a>
+        <a href="https://github.com/ContentsViewer/QR-UniversalScanner" class="card-link" target="_blank">Github</a>
+
+        <small class="text-muted card-link">v1.0.0</small>
+      </p>
+    </div>
+  </div>
+
+  <!-- <script src="./bundle.js"></script> -->
+</body>
+
+</html>
