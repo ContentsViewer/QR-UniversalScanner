@@ -1,7 +1,5 @@
 import * as bootstrap from 'bootstrap';
-// import 'bootstrap/dist/css/bootstrap.min.css';
 import jsQR from "jsqr";
-// import $ from "jquery";
 
 import '../scss/index.scss'
 

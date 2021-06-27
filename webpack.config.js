@@ -1,6 +1,7 @@
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 const WorkboxWebpackPlugin = require('workbox-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyPlugin = require("copy-webpack-plugin");
 
 const dist = __dirname + '/dist'
 
@@ -55,6 +56,11 @@ module.exports = {
             //         revision: null
             //     }
             // ]
+        }),
+        new CopyPlugin({
+            patterns: [
+                { from: "src/manifest.json", to: dist}
+            ],
         })
     ]
 }

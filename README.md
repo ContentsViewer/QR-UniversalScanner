@@ -1,1 +1,2 @@
-# QR-UniversalScanner
+# QR-Universal Scanner
+
