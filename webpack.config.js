@@ -41,26 +41,18 @@ module.exports = {
         ]
     },
     plugins: [
-        new FaviconsWebpackPlugin(),
+        new FaviconsWebpackPlugin({
+            mode: 'webapp',
+            manifest: 'src/manifest.json'
+        }),
         new HtmlWebpackPlugin({
             template: 'src/views/index.html'
         }),
-        new WorkboxWebpackPlugin.GenerateSW({
-            // additionalManifestEntries: [
-            //     {
-            //         url: 'index.html',
-            //         revision: null
-            //     },
-            //     {
-            //         url: 'index.css',
-            //         revision: null
-            //     }
-            // ]
-        }),
-        new CopyPlugin({
-            patterns: [
-                { from: "src/manifest.json", to: dist}
-            ],
-        })
+        new WorkboxWebpackPlugin.GenerateSW({}),
+        // new CopyPlugin({
+        //     patterns: [
+        //         { from: "src/manifest.json", to: dist}
+        //     ],
+        // })
     ]
 }

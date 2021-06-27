@@ -1,0 +1,13 @@
+{
+  "version": "1.0.0",
+  "api_version": 1,
+  "layout": {
+    "logo": "yandex-browser-50x50.png",
+    "color": "#fff",
+    "show_title": true
+  },
+  "name": "QR-Universal Scanner",
+  "short_name": "QR-Universal Scanner",
+  "display": "standalone",
+  "start_url": "index.html"
+}
