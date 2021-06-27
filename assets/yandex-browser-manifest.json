@@ -9,5 +9,5 @@
   "name": "QR-Universal Scanner",
   "short_name": "QR-Universal Scanner",
   "display": "standalone",
-  "start_url": "index.html"
+  "start_url": "../index.html"
 }
