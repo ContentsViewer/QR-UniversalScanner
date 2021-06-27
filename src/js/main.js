@@ -1,7 +1,20 @@
 import * as bootstrap from 'bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 import jsQR from "jsqr";
 // import $ from "jquery";
+
+import '../scss/index.scss'
+
+
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js').then(registration => {
+            console.log('SW registered: ', registration);
+        }).catch(registrationError => {
+            console.log('SW registration failed: ', registrationError);
+        });
+    });
+}
 
 
 var video = document.createElement("video");
@@ -31,7 +44,6 @@ new MutationObserver(function () {
         }
 
         if (active) {
-            console.log('active')
             if (!video.srcObject) {
                 openCameraButton.hidden = false;
                 closeCameraButton.hidden = true;
@@ -40,7 +52,6 @@ new MutationObserver(function () {
             }
         }
         else {
-            console.log('disactive')
             requestCameraClose = true;
         }
         prevActive = active;
@@ -82,27 +93,35 @@ closeCameraButton.addEventListener('click', function () {
 })
 
 copyButton.addEventListener('click', function () {
-    navigator.clipboard.writeText(outputData.innerText
-    ).then(() => {
-        copyButtonTooltip.show()
-        copyButton.classList.remove('btn-outline-secondary')
-        copyButton.classList.add('btn-outline-success')
-        setTimeout(() => {
-            console.log('asa')
-            copyButtonTooltip.hide()
-            copyButton.classList.add('btn-outline-secondary')
-            copyButton.classList.remove('btn-outline-success')
-        }, 2000)
-    }).catch((e) => {
-        console.error(e)
-    })
-})
+    var timeoutID = null
+
+    return () => {
+        navigator.clipboard.writeText(outputData.innerText
+        ).then(() => {
+            copyButtonTooltip.show()
+            copyButton.classList.remove('btn-outline-secondary')
+            copyButton.classList.add('btn-outline-success')
+            if (timeoutID) {
+                clearTimeout(timeoutID)
+            }
+            timeoutID = setTimeout(() => {
+                copyButtonTooltip.hide()
+                copyButton.classList.add('btn-outline-secondary')
+                copyButton.classList.remove('btn-outline-success')
+                timeoutID = null
+            }, 2000)
+        }).catch((e) => {
+            console.error(e)
+        })
+    }
+}())
 
 pasteButton.addEventListener('click', function () {
     clipboardMessage.hidden = true
     clipboardCanvas.hidden = true
 
     navigator.clipboard.read().then(data => {
+        console.log(data)
         for (let i = 0; i < data.length; i++) {
             const img = data[i];
             for (const type of img.types) {
@@ -111,7 +130,7 @@ pasteButton.addEventListener('click', function () {
                 }
             }
         }
-        throw new Error('NotImage')
+        throw new Error('Not Image')
     }).then(blob => {
         return new Promise((resolve, reject) => {
             const img = new Image();
@@ -130,16 +149,18 @@ pasteButton.addEventListener('click', function () {
         scanCode(clipboardCanvas)
     }).catch(error => {
         console.error(error)
-        if (error.message === "NotImage") {
+
+        if (!error) {
             clipboardMessage.hidden = false
-            clipboardMessage.innerHTML = "Not image"
+            clipboardMessage.innerHTML = "Unknown Error. This browser might be not supported."
+            return
         }
-        else {
-            clipboardMessage.hidden = false
-            clipboardMessage.innerHTML = "🗒 Unnable to access clipboard <br> (please make sure you enable clipboard access)"
-        }
+
+        clipboardMessage.hidden = false
+        clipboardMessage.innerHTML = error.message
     })
 })
+
 
 /**
  * Note:
