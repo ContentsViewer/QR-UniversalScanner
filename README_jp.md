@@ -25,7 +25,7 @@
     border-radius: .3rem;
     color: #fff;
     background-color: #0d6efd;
-    border-color: #0d6efd;">Launch App</a>
+    border-color: #0d6efd;" href="https://contentsviewer.github.io/QR-UniversalScanner/">Launch App</a>
 </div>
 
 <https://contentsviewer.github.io/QR-UniversalScanner/>
