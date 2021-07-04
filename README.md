@@ -8,10 +8,10 @@ English | [日本語](./README_jp.md)
     </a>
 </p>
 <h2 align="center">
-    <a href="https://contentsviewer.github.io/QR-UniversalScanner/" target="_blank" rel="noopener">Launch App</a>
+    <a href="https://contentsviewer.github.io/QR-UniversalScanner/">Launch App</a>
 </h2>
 <p align="center">
-    <a href="https://contentsviewer.github.io/QR-UniversalScanner/" target="_blank" rel="noopener">
+    <a href="https://contentsviewer.github.io/QR-UniversalScanner/">
       https://contentsviewer.github.io/QR-UniversalScanner/
     </a>
 </p>
