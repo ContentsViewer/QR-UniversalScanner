@@ -3,7 +3,7 @@
 [English](./README_jp.md) | 日本語
 
 <p align="center">
-    <a href="./logo.png">
+    <a href="https://contentsviewer.github.io/QR-UniversalScanner/">
       <img src="./logo.png"/>
     </a>
 </p>
@@ -30,3 +30,5 @@ QR-Universal Scaner は, ブラウザ上で動くシンプルで多機能なQR�
 ## ライセンス
 MIT
 
+## その他の情報
+本アプリに関する, その他詳しい情報は, [QR-Universal Scanner](https://contentsviewer.work/Master/WebTool/QR-UniversalScanner/app)を御覧ください.
