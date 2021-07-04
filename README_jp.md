@@ -20,12 +20,12 @@ QR-Universal Scanner は, ブラウザ上で動くシンプルで多機能なQR�
 
 
 ## 機能
-* QRコード読みとり
-    * 🎥カメラからの読み取り
-    * 🗒クリップボードからの読み取り
-* [PWA](https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps)に対応
-    * ホームスクリーンにアプリとして追加可能
-    * オフラインでの動作可能
+### QRコード読みとり
+* 🎥カメラからの読み取り
+* 🗒クリップボードからの読み取り
+### [PWA](https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps)に対応
+* ホームスクリーンにアプリとして追加可能
+* オフラインでの動作可能
 
 ## ライセンス
 MIT

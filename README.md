@@ -19,12 +19,13 @@ English | [日本語](./README_jp.md)
 QR-Universal Scanner is a simple and powerful QR code scanner web app that runs in your browser. As a PWA app, it can be installed on many devices, from mobile to PC, and works offline as well. 
 
 ## Features
-* QR code scanning
-  * 🎥Scanning from a camera
-  * 🗒Scanning from a clipborad
-* [PWA](https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps) support
-  * Adds to the homescreen as an app
-  * Works offline
+### QR code scanning
+* 🎥Scanning from a camera
+* 🗒Scanning from a clipborad
+
+### [PWA](https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps) support
+* Can be added as an app to the home screen
+* Works offline
 
 ## Licence
 MIT
