@@ -1,6 +1,6 @@
 # QR-Universal Scanner
 
-English | [日本語](./README_jp.md)
+[English](./README_jp.md) | 日本語
 
 ![QR-Universal Scanner](./logo.png)
 
