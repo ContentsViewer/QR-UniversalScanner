@@ -2,9 +2,11 @@
 
 [English](./README_jp.md) | 日本語
 
-<div style="text-align: center">
-    <img src="./logo.png">
-</div>
+<p align="center">
+    <a href="./logo.png">
+      <img src="./logo.png"/>
+    </a>
+</p>
 
 
 <div style="text-align: center">
