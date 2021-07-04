@@ -2,6 +2,16 @@
 
 English | [日本語](./README_jp.md)
 
-![QR-Universal Scanner](./logo.png)
-
-<https://contentsviewer.github.io/QR-UniversalScanner/>
+<p align="center">
+    <a href="./logo.png">
+      <img src="./logo.png"/>
+    </a>
+</p>
+<h2 align="center">
+    <a  href="https://contentsviewer.github.io/QR-UniversalScanner/">Launch App</a>
+</h2>
+<p align="center">
+    <a href="https://contentsviewer.github.io/QR-UniversalScanner/">
+      https://contentsviewer.github.io/QR-UniversalScanner/
+    </a>
+</p>

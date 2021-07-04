@@ -15,3 +15,5 @@
       https://contentsviewer.github.io/QR-UniversalScanner/
     </a>
 </p>
+
+## 機能
