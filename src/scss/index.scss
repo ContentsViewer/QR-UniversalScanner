@@ -17,9 +17,9 @@ body {
 }
 
 .copy-button.btn-outline-secondary > .clipboard-icon {
-    display: block;
+    display: block !important;
 }
 
 .copy-button.btn-outline-success > .check-icon {
-    display: block;
+    display: block !important;
 }
