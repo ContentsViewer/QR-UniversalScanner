@@ -3,12 +3,12 @@
 @import "~bootstrap/scss/bootstrap";
 
 html {
-    height: 100% !important;
+    height: 100%;
 }
 
 body {
-    background-color: transparent !important;
-    height: 100% !important;
+    background-color: transparent;
+    height: 100%;
 }
 
 .root-card-body {
@@ -17,9 +17,9 @@ body {
 }
 
 .copy-button.btn-outline-secondary > .clipboard-icon {
-    display: block !important;
+    display: block;
 }
 
 .copy-button.btn-outline-success > .check-icon {
-    display: block !important;
+    display: block;
 }

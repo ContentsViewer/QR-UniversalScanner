@@ -1,14 +1,14 @@
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 const WorkboxWebpackPlugin = require('workbox-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CopyPlugin = require("copy-webpack-plugin");
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const path = require('path');
 
-const dist = __dirname + '/dist'
 
 module.exports = {
     entry: './src/js/main.js',
     output: {
-        path: dist,
+        path: path.resolve(__dirname, 'dist'),
         filename: 'bundle.js'
     },
     module: {
@@ -24,20 +24,20 @@ module.exports = {
                 }
             },
             {
-                test: /\.s[ac]ss$/i,
+                test: /\.(sa|sc|c)ss$/,
                 use: [
-                    // Creates `style` nodes from JS strings
-                    "style-loader",
-                    // Translates CSS into CommonJS
-                    "css-loader",
-                    // Compiles Sass to CSS
-                    "sass-loader",
-                ],
-            },
-            // {
-            //     test: /\.css$/,
-            //     use: ['style-loader', 'css-loader']
-            // }
+                    MiniCssExtractPlugin.loader,
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            url: false,
+                        }
+                    },
+                    {
+                        loader: 'sass-loader'
+                    }
+                ]
+            }
         ]
     },
     plugins: [
@@ -45,14 +45,12 @@ module.exports = {
             mode: 'webapp',
             manifest: 'src/manifest.json'
         }),
+        new MiniCssExtractPlugin({
+            filename: 'style.css',
+        }),
         new HtmlWebpackPlugin({
             template: 'src/views/index.html'
         }),
         new WorkboxWebpackPlugin.GenerateSW({}),
-        // new CopyPlugin({
-        //     patterns: [
-        //         { from: "src/manifest.json", to: dist}
-        //     ],
-        // })
     ]
 }
