@@ -77,9 +77,9 @@ openCameraButton.addEventListener('click', function () {
     }).then(() => {
         requestAnimationFrame(tick);
         closeCameraButton.hidden = false;
-    }).catch((e) => {
-        console.error(e);
-        cameraDeviceMessage.innerHTML = "🎥 Unable to access video stream <br> (please make sure you have a webcam enabled)";
+    }).catch(error => {
+        console.error(error);
+        cameraDeviceMessage.innerHTML = `🎥 Unable to access video stream <hr> ${error}`;
     });
 })
 
@@ -108,8 +108,8 @@ copyButton.addEventListener('click', function () {
                 copyButton.classList.remove('btn-outline-success')
                 timeoutID = null
             }, 2000)
-        }).catch((e) => {
-            console.error(e)
+        }).catch(error => {
+            console.error(error)
         })
     }
 }())
@@ -119,7 +119,6 @@ pasteButton.addEventListener('click', function () {
     clipboardCanvas.hidden = true
 
     navigator.clipboard.read().then(data => {
-        console.log(data)
         for (let i = 0; i < data.length; i++) {
             const img = data[i];
             for (const type of img.types) {

@@ -31,7 +31,7 @@
           <div class="tab-pane fade show active" id="mode-camera" style="height: 100%;" role="tabpanel"
             aria-labelledby="mode-camera-tab">
             <div class="card-body"
-              style="height: 100%; display: flex; flex-direction: column;     justify-content: center">
+              style="height: 100%; display: flex; flex-direction: column; justify-content: center">
               <div class="text-center">
                 <button type="button" id="openCameraButton" class="btn btn-primary">Open camera 🎥</button>
                 <div id="cameraDeviceMessage" class="alert alert-primary" hidden role="alert"></div>
@@ -51,9 +51,9 @@
             </div>
           </div>
 
-          <div class="tab-pane fade" id="mode-clipboard" role="tabpanel" aria-labelledby="mode-clipboard-tab">
-            <div class="card-body" style="display: flex; flex-direction: column; align-items: center;">
-              <button id="pasteButton" type="button" class="btn btn-primary">
+          <div class="tab-pane fade" id="mode-clipboard" style="height: 100%" role="tabpanel" aria-labelledby="mode-clipboard-tab">
+            <div class="card-body" style="display: flex; flex-direction: column; align-items: center; height: 100%;">
+              <button id="pasteButton" type="button" class="btn btn-primary m-3">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                   class="bi bi-clipboard" viewBox="0 0 16 16">
                   <path
@@ -63,7 +63,7 @@
                 </svg>
                 Paste
               </button>
-              <div class="m-3"></div>
+              <!-- <div class="m-3"></div> -->
               <div id="clipboardMessage" class="alert alert-primary text-center" style="align-self: stretch;" hidden role="alert"></div>
               <canvas id="clipboardCanvas" style="max-width: 50vw; max-height: 50vh; object-fit: contain;" hidden></canvas>
             </div>
@@ -116,7 +116,7 @@
           target="_blank">About</a>
         <a href="https://github.com/ContentsViewer/QR-UniversalScanner" class="card-link" target="_blank">Github</a>
 
-        <small class="text-muted card-link">v1.0.1</small>
+        <small class="text-muted card-link">v1.0.2</small>
       </p>
     </div>
   </div>
